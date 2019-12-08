@@ -7,6 +7,13 @@ module CPU
 // Ports
 input         clk_i;
 input         start_i;
+// IF stage
+MUX32 PC_MUX(
+	.data1_i        (),
+	.data2_i        (),
+	.select_i       (),
+	.data_o         ()
+); 
 
 PC PC(
     .clk_i          (),
@@ -21,6 +28,35 @@ Instruction_Memory Instruction_Memory(
     .instr_o        ()
 );
 
+Adder Add_PC(
+	.data1_in       (),
+	.data2_in       (),
+	.data_o         ()
+);
+
+// IF_ID pipeline
+
+IF_ID IF_ID(
+	.clk_i          (),
+	.IF_flush       (),
+	.IF_IDWrite     (),
+	.PC_i           (),
+	.instr_i        (),
+	.PC_o           (),
+	.instr_o        ()
+);
+
+// ID stage
+
+hazard_detection haz(
+	.ID_EX_MEMR_i   (),
+	.RS1_i          (),
+	.RS2_i          (),
+	.ID_EX_RD_i     (),
+	.PCWrite_o      (),
+	.IF_ID_Write_o  (),
+	.BubbleSignal   ()
+);
 Registers Registers(
     .clk_i          (),
     .RS1addr_i      (),

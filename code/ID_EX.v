@@ -33,7 +33,7 @@ input  [ 4:0]   RS1addr_i;
 input  [ 4:0]   RS2addr_i;
 input  [ 4:0]   RDaddr_i;
 output [ 1:0]   WB_o;
-output [ 1:0]   MEM_o;
+output          MEM_o;
 output          ALUSrc_o;
 output [ 1:0]   ALUOp_o;
 output [31:0]   RS1_o;
@@ -44,7 +44,7 @@ output [ 4:0]   RS2addr_o;
 output [ 4:0]   RDaddr_o;
 
 reg    [ 1:0]   WB;
-reg    [ 1:0]   MEM;
+reg             MEM;
 reg    [ 2:0]   EX;
 reg    [31:0]   RS1;
 reg    [31:0]   RS2;

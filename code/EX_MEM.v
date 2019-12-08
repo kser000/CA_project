@@ -7,7 +7,6 @@ module EX_MEM
 	RS2_i,
 	RDaddr_i,
 	WB_o,
-	MEMR_o,
 	MEMW_o,
 	ALUout_o,
 	RS2_o,
@@ -15,7 +14,7 @@ module EX_MEM
 );
 
 input         clk_i;
-input  [ 1:0] MEM_i;
+input         MEM_i;
 input  [ 1:0] WB_i;
 input  [31:0] ALUout_i;
 input  [31:0] RS2_i;
@@ -27,15 +26,14 @@ output [31:0] ALUout_o;
 output [31:0] RS2_o;
 output [ 4:0] RDaddr_o;
 
-reg    [ 1:0] MEM;
+reg           MEM;
 reg    [ 1:0] WB;
 reg    [31:0] ALUout;
 reg    [31:0] RS2;
 reg    [ 4:0] RDaddr;
 
 assign WB_o = WB;
-assign MEMR_o = MEM[1];
-assign MEMW_o = MEM[2];
+assign MEMW_o = MEM;
 assign ALUout_o = ALUout;
 assign RS2_o = RS2;
 assign RDaddr_o = RDaddr;

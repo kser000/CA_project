@@ -24,7 +24,7 @@ module ID_EX
 
 input           clk_i;
 input  [ 1:0]   WB_i;
-input  [ 1:0]   MEM_i;
+input           MEM_i;
 input  [ 2:0]   EX_i;
 input  [31:0]   RS1_i;
 input  [31:0]   RS2_i;

@@ -55,7 +55,7 @@ hazard_detection haz(
 	.ID_EX_RD_i     (ID_EX.RDaddr_o),
 	.PCWrite_o      (),
 	.IF_ID_Write_o  (),
-	.BubbleSignal   ()
+	.BubbleSignal_o ()
 );
 
 Control control(
@@ -84,7 +84,7 @@ equal equal(
 MUX6 MUX_Control(
 	.data1_i        (control.Signal_o),
 	.data2_i        (6'b0),
-	.select_i       (haz.BubbleSignal),
+	.select_i       (haz.BubbleSignal_o),
 	.data_o         ()
 );
 
@@ -170,7 +170,7 @@ forward forward(
 
 ALU_Control ALU_Control(
 	.funct_i        (ID_EX.funct_o),
-	.ALUOp_i        (control.ALUOp_o),
+	.ALUOp_i        (ID_EX.ALUOp_o),
 	.ALUCtrl_o      ()
 );
 
@@ -188,7 +188,7 @@ EX_MEM EX_MEM(
 	.MEM_i          (ID_EX.MEM_o),
 	.WB_i           (ID_EX.WB_o),
 	.ALUout_i       (ALU.data_o),
-	.RS2_i          (forwardB.data_i),
+	.RS2_i          (forwardB.data_o),
 	.RDaddr_i       (ID_EX.RDaddr_o),
 	.WB_o           (),
 	.MEMW_o         (),
@@ -225,8 +225,8 @@ MEM_WB MEM_WB(
 // WB stage
 
 MUX32 MemtoReg(
-	.data1_i        (MEM_WB.Data_o),
-	.data2_i        (MEM_WB.ALUout_o),
+	.data1_i        (MEM_WB.ALUout_o),
+	.data2_i        (MEM_WB.Data_o),
 	.select_i       (MEM_WB.MemtoReg_o),
 	.data_o         ()
 );

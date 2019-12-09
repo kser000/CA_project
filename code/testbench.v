@@ -94,7 +94,7 @@ always@(posedge Clk) begin
         $finish;
 
     // TODO: put in your own signal to count stall and flush
-    if(CPU.haz.BubbleSignal == 1) stall = stall + 1;
+    if(CPU.haz.BubbleSignal_o == 1) stall = stall + 1;
     if(CPU.control.flush_o == 1) flush = flush + 1;  
    
 

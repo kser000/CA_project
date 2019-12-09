@@ -10,7 +10,7 @@ module EX_MEM
 	MEMW_o,
 	ALUout_o,
 	RS2_o,
-	RDaddr_o,
+	RDaddr_o
 );
 
 input         clk_i;

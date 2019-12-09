@@ -10,6 +10,7 @@ module ID_EX
 	RS1addr_i,
 	RS2addr_i,
 	RDaddr_i,
+	funct_i,
 	WB_o,
 	MEM_o,
 	ALUSrc_o,
@@ -19,8 +20,9 @@ module ID_EX
 	IMM_o,
 	RS1addr_o,
 	RS2addr_o,
-	RDaddr_o
-)
+	RDaddr_o,
+	funct_o
+);
 
 input           clk_i;
 input  [ 1:0]   WB_i;
@@ -32,6 +34,7 @@ input  [31:0]   IMM_i;
 input  [ 4:0]   RS1addr_i;
 input  [ 4:0]   RS2addr_i;
 input  [ 4:0]   RDaddr_i;
+input  [ 9:0]   funct_i;
 output [ 1:0]   WB_o;
 output          MEM_o;
 output          ALUSrc_o;
@@ -42,6 +45,7 @@ output [31:0]   IMM_o;
 output [ 4:0]   RS1addr_o;
 output [ 4:0]   RS2addr_o;
 output [ 4:0]   RDaddr_o;
+output [ 9:0]   funct_o;
 
 reg    [ 1:0]   WB;
 reg             MEM;
@@ -52,6 +56,7 @@ reg    [31:0]   IMM;
 reg    [ 4:0]   RS1_addr;
 reg    [ 4:0]   RS2_addr;
 reg    [ 4:0]   RD_addr;
+reg    [ 9:0]   funct;
 
 assign WB_o = WB;
 assign MEM_o = MEM;
@@ -63,7 +68,7 @@ assign IMM_o = IMM;
 assign RS1addr_o = RS1_addr;
 assign RS2addr_o = RS2_addr;
 assign RDaddr_o = RD_addr;
-
+assign funct_o = funct;
 always@(posedge clk_i) begin
 	WB <= WB_i;
 	MEM <= MEM_i;
@@ -74,6 +79,7 @@ always@(posedge clk_i) begin
 	RS1_addr <= RS1addr_i;
 	RS2_addr <= RS2addr_i;
 	RD_addr <= RDaddr_i;
+	funct <= funct_i;
 end
 
 endmodule

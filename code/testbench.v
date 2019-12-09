@@ -18,7 +18,7 @@ initial begin
     counter = 0;
     stall = 0;
     flush = 0;
-    
+   	CPU.PC.pc_o = 32'b0; 
     // initialize instruction memory
     for(i=0; i<256; i=i+1) begin
         CPU.Instruction_Memory.memory[i] = 32'b0;
@@ -35,7 +35,39 @@ initial begin
     end
 
     // TODO: initialize pipeline registers
-    
+	// IF_ID
+	
+   	CPU.IF_ID.PC = 32'b0;
+	CPU.IF_ID.instruction = 32'b0;
+	
+	// ID_EX
+	
+	CPU.ID_EX.WB = 2'b0;
+	CPU.ID_EX.MEM = 0;
+	CPU.ID_EX.EX = 3'b0;
+	CPU.ID_EX.RS1 = 32'b0;
+	CPU.ID_EX.RS2 = 32'b0;
+	CPU.ID_EX.IMM = 32'b0;
+	CPU.ID_EX.RS1_addr = 5'b0;
+	CPU.ID_EX.RS2_addr = 5'b0;
+	CPU.ID_EX.RD_addr = 5'b0;
+	CPU.ID_EX.funct = 10'b0;
+	
+	// EX_MEM
+	
+	CPU.EX_MEM.MEM = 0;
+	CPU.EX_MEM.WB = 2'b0;
+	CPU.EX_MEM.ALUout = 32'b0;
+	CPU.EX_MEM.RS2 = 32'b0;
+	CPU.EX_MEM.RDaddr = 5'b0;
+
+	// MEM_WB
+	
+	CPU.MEM_WB.WB = 2'b0;
+	CPU.MEM_WB.Data = 32'b0;
+	CPU.MEM_WB.ALUout = 32'b0;
+	CPU.MEM_WB.RDaddr = 5'b0;
+
     // Load instructions into instruction memory
     $readmemb("../testdata/instruction.txt", CPU.Instruction_Memory.memory);
     
@@ -62,8 +94,8 @@ always@(posedge Clk) begin
         $finish;
 
     // TODO: put in your own signal to count stall and flush
-    // if(CPU.HazardDetection.Stall_o == 1 && CPU.Control.Branch_o == 0)stall = stall + 1;
-    // if(CPU.HazardDetection.Flush_o == 1)flush = flush + 1;  
+    if(CPU.haz.BubbleSignal == 1) stall = stall + 1;
+    if(CPU.control.flush_o == 1) flush = flush + 1;  
    
 
     // print PC

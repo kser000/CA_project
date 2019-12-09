@@ -1,9 +1,9 @@
-module  MEM_WB
+module MEM_WB
 (
 	clk_i,
 	WB_i,
 	Data_i,
-	ALUout_i.
+	ALUout_i,
 	RDaddr_i,
 	RegWrite_o,
 	MemtoReg_o,

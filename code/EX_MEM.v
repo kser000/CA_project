@@ -43,7 +43,7 @@ always@(posedge clk_i) begin
 	WB  <= WB_i;
 	ALUout <= ALUout_i;
 	RS2 <= RS2_i;
-	RDaddr = RDaddr_i;
+	RDaddr <= RDaddr_i;
 end 
 
 endmodule

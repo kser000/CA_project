@@ -18,8 +18,8 @@ initial begin
     counter = 0;
     stall = 0;
     flush = 0;
-   	CPU.PC.pc_o = 32'b0; 
     // initialize instruction memory
+ 	CPU.PC.pc_o = 32'b0;	
     for(i=0; i<256; i=i+1) begin
         CPU.Instruction_Memory.memory[i] = 32'b0;
     end
@@ -67,12 +67,11 @@ initial begin
 	CPU.MEM_WB.Data = 32'b0;
 	CPU.MEM_WB.ALUout = 32'b0;
 	CPU.MEM_WB.RDaddr = 5'b0;
-
     // Load instructions into instruction memory
-    $readmemb("../testdata/instruction.txt", CPU.Instruction_Memory.memory);
+    $readmemb("../testdata/Fibonacci_instruction.txt", CPU.Instruction_Memory.memory);
     
     // Open output file
-    outfile = $fopen("../testdata/output.txt") | 1;
+    outfile = $fopen("../testdata/output_Fib.txt") | 1;
     
     // Set Input n into data memory at 0x00
     CPU.Data_Memory.memory[0] = 8'h5;       // n = 5 for example
@@ -90,7 +89,7 @@ end
   
 always@(posedge Clk) begin
     // TODO: change # of cycles as you need
-    if(counter == 30)    // stop after 30 cycles
+    if(counter == 64)    // stop after 30 cycles
         $finish;
 
     // TODO: put in your own signal to count stall and flush
